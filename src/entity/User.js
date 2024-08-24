@@ -21,22 +21,16 @@ const User = new EntitySchema({
     },
   },
   relations: {
-    organizations: {
-      type: "many-to-many",
+    organization: {
+      type: "many-to-one",
       target: "Organization",
-      inverseSide: "users",
-      joinTable: {
-        name: "user_organizations",
-        joinColumn: {
-          name: "user_id",
-          referencedColumnName: "id",
-        },
-        inverseJoinColumn: {
-          name: "organization_id",
-          referencedColumnName: "id",
-        },
-      },
+      joinColumn: true,
       cascade: true,
+    },
+    tasks: {
+      type: "one-to-many",
+      target: "Task",
+      inverseSide: "user",
     },
   },
 });

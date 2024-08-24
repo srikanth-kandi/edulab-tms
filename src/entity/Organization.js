@@ -20,9 +20,9 @@ const Organization = new EntitySchema({
   },
   relations: {
     users: {
-      type: "many-to-many",
+      type: "one-to-many",
       target: "User",
-      joinTable: true,
+      inverseSide: "organization",
     },
   },
 });

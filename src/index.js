@@ -18,7 +18,7 @@ AppDataSource.initialize()
     app.post("/login", authController.login);
     app.use("/tasks", taskRoutes);
     app.get("/", (req, res) => {
-      res.send("Welcome to Task Manager API");
+      res.send("Welcome to Task Management System API");
     });
 
     app.listen(3000, () => {

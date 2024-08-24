@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { createTask } from "../controller/taskController.js";
+import {
+  createTask,
+  updateTask,
+  deleteTask,
+  getTasks,
+  getTask,
+} from "../controller/taskController.js";
 import {
   authMiddleware,
   roleMiddleware,
@@ -8,6 +14,14 @@ import {
 const router = Router();
 
 router.post("/", authMiddleware, roleMiddleware(["admin", "user"]), createTask);
-// Add more routes for read, update, delete tasks
+router.put("/", authMiddleware, roleMiddleware(["admin", "user"]), updateTask);
+router.delete(
+  "/:id",
+  authMiddleware,
+  roleMiddleware(["admin", "user"]),
+  deleteTask
+);
+router.get("/", authMiddleware, roleMiddleware(["admin", "user"]), getTasks);
+router.get("/:id", authMiddleware, roleMiddleware(["admin", "user"]), getTask);
 
 export default router;

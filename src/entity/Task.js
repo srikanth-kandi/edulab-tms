@@ -16,14 +16,15 @@ const Task = new EntitySchema({
       type: "varchar",
     },
     status: {
-      type: "varchar",
+      type: "varchar", // e.g., 'pending', 'in-progress', 'completed'
     },
   },
   relations: {
     user: {
       type: "many-to-one",
-      target: "User", // This must match the 'name' property of the User EntitySchema
-      inverseSide: "tasks", // This must match the property name in the User entity that holds the relation
+      target: "User",
+      inverseSide: "tasks",
+      onDelete: "CASCADE",
     },
   },
 });
