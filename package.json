@@ -1,0 +1,35 @@
+{
+  "name": "edulab-tms",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "typeorm": "typeorm -d src/data-source.js",
+    "migration:generate": "npm run typeorm -- migration:generate -o",
+    "migration:run": "typeorm migration:run -d src/data-source.js",
+    "migration:revert": "typeorm migration:revert -d src/data-source.js"
+  },
+  "keywords": [
+    "Node.js",
+    "Express.js",
+    "TypeORM",
+    "PostgreSQL"
+  ],
+  "author": "srikanth-kandi",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.12.0",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
