@@ -70,7 +70,7 @@ npm start
         "username": "string",
         "password": "string",
         "orgName": "string", // Optional, use if you want to create a new organization
-        "existingOrgId": number // Optional, use if you want to join an existing organization
+        "existingOrgId": 0 // Optional, use if you want to join an existing organization
       }
       ```
 
@@ -84,11 +84,11 @@ npm start
           "password": "hashedPassword",
           "role": "string", // "user" or "admin"
           "organization": {
-              "id": number,
-              "name": "orgName",
-              "createdAt": "timestamp"
+            "id": 0,
+            "name": "orgName",
+            "createdAt": "timestamp"
           },
-          "id": number
+          "id": 0
         }
       }
       ```
@@ -140,9 +140,9 @@ npm start
 
      ```json
      {
-       "id": number,
+       "id": 0,
        "username": "string",
-       "role": "string", // "user" or "admin"
+       "role": "string" // "user" or "admin"
      }
      ```
 
@@ -158,12 +158,12 @@ npm start
 
      ```json
      [
-        {
-            "id": number,
-            "username": "string",
-            "password": "hashedPassword",
-            "role": "string" // "user" or "admin"
-        }
+       {
+         "id": 0,
+         "username": "string",
+         "password": "hashedPassword",
+         "role": "string" // "user" or "admin"
+       }
      ]
      ```
 
@@ -181,10 +181,10 @@ npm start
 
      ```json
      {
-       "id": number,
+       "id": 0,
        "username": "string",
        "role": "string", // "user" or "admin"
-       "orgId": number,
+       "orgId": 0,
        "orgName": "string"
      }
      ```
@@ -203,7 +203,7 @@ npm start
 
      ```json
      {
-       "id": number,
+       "id": 0,
        "username": "string",
        "password": "string",
        "role": "string" // "user" or "admin"
@@ -214,7 +214,7 @@ npm start
 
      ```json
      {
-       "id": number,
+       "id": 0,
        "username": "string",
        "role": "string" // "user" or "admin"
      }
@@ -262,8 +262,8 @@ npm start
 
      ```json
      {
-        "id": number,
-        "name": "new-org-name"
+       "id": 0,
+       "name": "new-org-name"
      }
      ```
 
@@ -284,11 +284,11 @@ npm start
      ```json
      [
        {
-         "id": number,
+         "id": 0,
          "title": "string",
          "description": "string",
          "status": "string", // "pending", "in-progress", "completed"
-         "userId": number
+         "userId": 0
        }
      ]
      ```
@@ -307,11 +307,11 @@ npm start
 
      ```json
      {
-       "id": number,
+       "id": 0,
        "title": "string",
        "description": "string",
        "status": "string", // "pending", "in-progress", "completed"
-       "userId": number
+       "userId": 0
      }
      ```
 
@@ -332,7 +332,7 @@ npm start
        "title": "string",
        "description": "string",
        "status": "string", // "pending", "in-progress", "completed"
-       "adminReqUserId": number // optional, only admin users can create tasks for other users
+       "adminReqUserId": 0 // optional, only admin users can create tasks for other users
      }
      ```
 
@@ -340,10 +340,10 @@ npm start
 
      ```json
      {
-       "id": number,
+       "id": 0,
        "title": "string",
        "description": "string",
-       "status": "string", // "pending", "in-progress", "completed"
+       "status": "string" // "pending", "in-progress", "completed"
      }
      ```
 
@@ -361,7 +361,7 @@ npm start
 
      ```json
      {
-       "id": number,
+       "id": 0,
        "title": "string",
        "description": "string",
        "status": "string" // "pending", "in-progress", "completed"
@@ -372,7 +372,7 @@ npm start
 
      ```json
      {
-       "id": number,
+       "id": 0,
        "title": "string",
        "description": "string",
        "status": "string" // "pending", "in-progress", "completed"
