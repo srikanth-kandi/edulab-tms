@@ -17,6 +17,10 @@ const Organization = new EntitySchema({
       type: "timestamp",
       createDate: true,
     },
+    updatedAt: {
+      type: "timestamp",
+      updateDate: true,
+    },
   },
   relations: {
     users: {

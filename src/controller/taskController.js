@@ -87,6 +87,14 @@ export async function updateTask(req, res) {
       }
     }
 
+    // check if status is valid
+    if (!["pending", "in-progress", "completed"].includes(status)) {
+      return res.status(400).json({
+        message:
+          "Invalid status, please select 'pending' or 'in-progress' or 'completed'",
+      });
+    }
+
     existingTask.title = title;
     existingTask.description = description;
     existingTask.status = status;

@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import AppDataSource from "./data-source.js";
 import taskRoutes from "./routes/taskRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import orgRoutes from "./routes/orgRoutes.js";
 import * as authController from "./controller/authController.js";
 
 const app = express();
@@ -17,24 +19,15 @@ AppDataSource.initialize()
     app.post("/register", authController.register);
     app.post("/login", authController.login);
     app.use("/tasks", taskRoutes);
+    app.use("/users", userRoutes);
+    app.use("/organizations", orgRoutes);
     app.get("/", (req, res) => {
       res.send({
         message: "Welcome to Task Management System API!",
-        API: {
-          tasks: {
-            get: "GET https://tms.srikanthkandi.me/tasks",
-            getById: "GET https://tms.srikanthkandi.me/tasks/:id",
-            create: "POST https://tms.srikanthkandi.me/tasks",
-            update: "PUT https://tms.srikanthkandi.me/tasks/:id",
-            delete: "DELETE https://tms.srikanthkandi.me/tasks/:id",
-          },
-          register: "POST https://tms.srikanthkandi.me/register",
-          login: "POST https://tms.srikanthkandi.me/login",
-        },
-        GitHub: "https://github.com/srikanth-kandi/edulab-tms",
-        AboutMe: "https://www.srikanthkandi.me",
-        Resume: "https://www.srikanthkandi.me/resume",
-        LinkedIn: "https://www.linkedin.com/in/srikanthkandi",
+        apiDocs: "https://github.com/srikanth-kandi/edulab-tms#readme",
+        aboutMe: "https://www.srikanthkandi.me",
+        resume: "https://www.srikanthkandi.me/resume",
+        linkedIn: "https://www.linkedin.com/in/srikanthkandi",
       });
     });
 
