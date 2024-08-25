@@ -8,10 +8,29 @@ const userRepository = AppDataSource.getRepository(User);
 
 // Create a new task
 export async function createTask(req, res) {
-  const { title, description, status } = req.body;
+  const { title, description, status, adminReqUserId } = req.body;
 
   try {
-    const user = await userRepository.findOne({ where: { id: req.userId } });
+    let user;
+    if (req.userRole === "admin" && adminReqUserId) {
+      // check if admin is same organization as the requesting user
+      const usersInOrganization = await userRepository.find({
+        where: { organization: { id: req.userOrgId } },
+      });
+
+      // Extract user IDs from the users in the organization
+      const userIds = usersInOrganization.map((user) => user.id);
+
+      if (!userIds.includes(adminReqUserId)) {
+        return res.status(400).json({ message: "User not in organization" });
+      }
+
+      // Admin creating task for any user in their organization
+      user = await userRepository.findOne({ where: { id: adminReqUserId } });
+    } else {
+      // Regular user creating task for self, or admin creating task for self
+      user = await userRepository.findOne({ where: { id: req.userId } });
+    }
     const newTask = taskRepository.create({ title, description, status, user });
     await taskRepository.save(newTask);
 
@@ -31,14 +50,32 @@ export async function updateTask(req, res) {
   const { id, title, description, status } = req.body;
 
   try {
-    const existingTask = await taskRepository.findOne({ where: { id } });
+    const existingTask = await taskRepository.findOne({
+      where: { id },
+      relations: ["user"],
+    });
+
     if (!existingTask) {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    // Check if task belongs to the requesting user
-    if (existingTask.userId !== req.userId && req.userRole !== "admin") {
-      return res.status(403).json({ message: "Unauthorized" });
+    if (req.userRole === "admin") {
+      // check if admin is same organization as the requesting user
+      const usersInOrganization = await userRepository.find({
+        where: { organization: { id: req.userOrgId } },
+      });
+
+      // Extract user IDs from the users in the organization
+      const userIds = usersInOrganization.map((user) => user.id);
+
+      if (!userIds.includes(existingTask.user.id)) {
+        return res.status(400).json({ message: "Task not in organization" });
+      }
+    } else {
+      // Check if task belongs to the requesting user
+      if (existingTask.user.id !== req.userId) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
     }
 
     existingTask.title = title;
@@ -62,14 +99,31 @@ export async function deleteTask(req, res) {
   const { id } = req.params;
 
   try {
-    const existingTask = await taskRepository.findOne({ where: { id } });
+    const existingTask = await taskRepository.findOne({
+      where: { id },
+      relations: ["user"],
+    });
     if (!existingTask) {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    // Check if task belongs to the requesting user
-    if (existingTask.userId !== req.userId && req.userRole !== "admin") {
-      return res.status(403).json({ message: "Unauthorized" });
+    // Check if admin is same organization as the requesting user
+    if (req.userRole === "admin") {
+      const usersInOrganization = await userRepository.find({
+        where: { organization: { id: req.userOrgId } },
+      });
+
+      // Extract user IDs from the users in the organization
+      const userIds = usersInOrganization.map((user) => user.id);
+
+      if (!userIds.includes(existingTask.user.id)) {
+        return res.status(400).json({ message: "Task not in organization" });
+      }
+    } else {
+      // Check if task belongs to the requesting user
+      if (existingTask.user.id !== req.userId) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
     }
 
     await taskRepository.remove(existingTask);
@@ -136,16 +190,39 @@ export async function getTask(req, res) {
   const { id } = req.params;
 
   try {
-    const task = await taskRepository.findOne({ where: { id } });
+    const task = await taskRepository.findOne({
+      where: { id },
+      relations: ["user"],
+    });
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    // Check if task belongs to the requesting user
-    if (task.userId !== req.userId && req.userRole !== "admin") {
-      return res.status(403).json({ message: "Unauthorized" });
+    // Check if admin is same organization as the requesting user
+    if (req.userRole === "admin") {
+      const usersInOrganization = await userRepository.find({
+        where: { organization: { id: req.userOrgId } },
+      });
+
+      // Extract user IDs from the users in the organization
+      const userIds = usersInOrganization.map((user) => user.id);
+
+      if (!userIds.includes(task.user.id)) {
+        return res.status(400).json({ message: "Task not in organization" });
+      }
+    } else {
+      // Check if task belongs to the requesting user
+      if (task.user.id !== req.userId) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
     }
-    res.json(task);
+    res.json({
+      id: task.id,
+      title: task.title,
+      description: task.description,
+      status: task.status,
+      userId: task.user.id,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

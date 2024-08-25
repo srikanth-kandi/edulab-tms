@@ -11,17 +11,16 @@ const userRepository = AppDataSource.getRepository(User);
 const organizationRepository = AppDataSource.getRepository(Organization);
 
 export async function register(req, res) {
-  const { username, password, organizationName, existingOrganizationId } =
-    req.body;
+  const { username, password, orgName, existingOrgId } = req.body;
 
   try {
     let organization;
     let role;
 
-    if (existingOrganizationId) {
+    if (existingOrgId) {
       // Join existing organization
       organization = await organizationRepository.findOne({
-        where: { id: existingOrganizationId },
+        where: { id: existingOrgId },
       });
 
       if (!organization) {
@@ -30,14 +29,34 @@ export async function register(req, res) {
 
       // Check if the organization already has any users
       const userCount = await userRepository.count({
-        where: { organization: { id: existingOrganizationId } },
+        where: { organization: { id: existingOrgId } },
       });
 
       // Assign role based on user count
       role = userCount === 0 ? "admin" : "user";
-    } else if (organizationName) {
+    } else if (orgName) {
+      // orgName should contain alphabets, numbers and - only
+      const orgNameRegex = /^[a-zA-Z0-9-]+$/;
+      if (!orgNameRegex.test(orgName)) {
+        return res.status(400).json({
+          error:
+            "Organization name should contain alphabets, numbers and - only",
+        });
+      }
+
+      // Check if the organization name is already taken via case-insensitive search
+      const existingOrg = await organizationRepository.findOne({
+        where: { name: orgName },
+      });
+
+      if (existingOrg) {
+        return res
+          .status(400)
+          .json({ error: "Organization name already exists" });
+      }
+
       // Create a new organization
-      organization = organizationRepository.create({ name: organizationName });
+      organization = organizationRepository.create({ name: orgName });
       await organizationRepository.save(organization);
 
       // The first user in a new organization is the admin
@@ -48,11 +67,29 @@ export async function register(req, res) {
         .json({ error: "Organization details are required" });
     }
 
+    // Check if the username is already taken
+    const existingUser = await userRepository.findOne({
+      where: { username: username.toLowerCase() },
+    });
+    if (existingUser) {
+      return res.status(400).json({ error: "Username already exists" });
+    }
+
+    // check password has at least 8 characters with at least one number, one lowercase and one uppercase letter and one special character
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        error:
+          "Password must contain at least 8 characters with at least one number, one lowercase and one uppercase letter and one special character",
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user and assign them to the organization
     const user = userRepository.create({
-      username,
+      username: username.toLowerCase(),
       password: hashedPassword,
       role: role,
       organization: organization,
@@ -72,7 +109,7 @@ export async function login(req, res) {
   try {
     // Find the user by username
     const user = await userRepository.findOne({
-      where: { username },
+      where: { username: username.toLowerCase() },
       relations: ["organization"],
     });
 
