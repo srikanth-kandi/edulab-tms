@@ -31,6 +31,15 @@ export async function createTask(req, res) {
       // Regular user creating task for self, or admin creating task for self
       user = await userRepository.findOne({ where: { id: req.userId } });
     }
+
+    // check if status is valid
+    if (!["pending", "in-progress", "completed"].includes(status)) {
+      return res.status(400).json({
+        message:
+          "Invalid status, please select 'pending' or 'in-progress' or 'completed'",
+      });
+    }
+
     const newTask = taskRepository.create({ title, description, status, user });
     await taskRepository.save(newTask);
 

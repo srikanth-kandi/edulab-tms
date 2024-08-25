@@ -18,7 +18,24 @@ AppDataSource.initialize()
     app.post("/login", authController.login);
     app.use("/tasks", taskRoutes);
     app.get("/", (req, res) => {
-      res.send("Welcome to Task Management System API");
+      res.send({
+        message: "Welcome to Task Management System API!",
+        API: {
+          tasks: {
+            get: "GET https://tms.srikanthkandi.me/tasks",
+            getById: "GET https://tms.srikanthkandi.me/tasks/:id",
+            create: "POST https://tms.srikanthkandi.me/tasks",
+            update: "PUT https://tms.srikanthkandi.me/tasks/:id",
+            delete: "DELETE https://tms.srikanthkandi.me/tasks/:id",
+          },
+          register: "POST https://tms.srikanthkandi.me/register",
+          login: "POST https://tms.srikanthkandi.me/login",
+        },
+        GitHub: "https://github.com/srikanth-kandi/edulab-tms",
+        AboutMe: "https://www.srikanthkandi.me",
+        Resume: "https://www.srikanthkandi.me/resume",
+        LinkedIn: "https://www.linkedin.com/in/srikanthkandi",
+      });
     });
 
     app.listen(3000, () => {
