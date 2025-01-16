@@ -60,7 +60,7 @@ npm start
 
 1.  Register a new user
 
-    - URL: [`/register`](https://tms.srikanthkandi.me/register)
+    - URL: [`/register`](https://tms.srikanthkandi.tech/register)
     - Method: `POST`
     - Request Body:
       Use either `orgName` or `existingOrgId` but not both. Username needs to unique across the users irrespective of the organization. Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.
@@ -95,7 +95,7 @@ npm start
 
 2.  Login
 
-    - URL: [`/login`](https://tms.srikanthkandi.me/login)
+    - URL: [`/login`](https://tms.srikanthkandi.tech/login)
     - Method: `POST`
     - Request Body:
 
@@ -118,7 +118,7 @@ npm start
 
 1. Create user
 
-   - URL: [`/users`](https://tms.srikanthkandi.me/users)
+   - URL: [`/users`](https://tms.srikanthkandi.tech/users)
    - Method: `POST`
    - Headers:
 
@@ -148,7 +148,7 @@ npm start
 
 2. Get all users
 
-   - URL: [`/users`](https://tms.srikanthkandi.me/users)
+   - URL: [`/users`](https://tms.srikanthkandi.tech/users)
    - Method: `GET`
    - Headers:
      ```yaml
@@ -169,7 +169,7 @@ npm start
 
 3. Get user by ID
 
-   - URL: [`/users/:id`](https://tms.srikanthkandi.me/users/:id)
+   - URL: [`/users/:id`](https://tms.srikanthkandi.tech/users/:id)
    - Method: `GET`
    - Headers:
 
@@ -191,7 +191,7 @@ npm start
 
 4. Update user
 
-   - URL: [`/users`](https://tms.srikanthkandi.me/users)
+   - URL: [`/users`](https://tms.srikanthkandi.tech/users)
    - Method: `PUT`
    - Headers:
 
@@ -222,7 +222,7 @@ npm start
 
 5. Delete user
 
-   - URL: [`/users/:id`](https://tms.srikanthkandi.me/users/:id)
+   - URL: [`/users/:id`](https://tms.srikanthkandi.tech/users/:id)
    - Method: `DELETE`
    - Headers:
 
@@ -242,7 +242,7 @@ npm start
 
 1. Update organization
 
-   - URL: [`/organizations`](https://tms.srikanthkandi.me/organizations)
+   - URL: [`/organizations`](https://tms.srikanthkandi.tech/organizations)
    - Method: `PUT`
    - Headers:
 
@@ -271,7 +271,7 @@ npm start
 
 1. Get all tasks
 
-   - URL: [`/tasks`](https://tms.srikanthkandi.me/tasks)
+   - URL: [`/tasks`](https://tms.srikanthkandi.tech/tasks)
    - Method: `GET`
    - Headers:
 
@@ -295,7 +295,7 @@ npm start
 
 2. Get task by ID
 
-   - URL: [`/tasks/:id`](https://tms.srikanthkandi.me/tasks/:id)
+   - URL: [`/tasks/:id`](https://tms.srikanthkandi.tech/tasks/:id)
    - Method: `GET`
    - Headers:
 
@@ -317,7 +317,7 @@ npm start
 
 3. Create task
 
-   - URL: [`/tasks`](https://tms.srikanthkandi.me/tasks)
+   - URL: [`/tasks`](https://tms.srikanthkandi.tech/tasks)
    - Method: `POST`
    - Headers:
 
@@ -349,7 +349,7 @@ npm start
 
 4. Update task
 
-   - URL: [`/tasks`](https://tms.srikanthkandi.me/tasks)
+   - URL: [`/tasks`](https://tms.srikanthkandi.tech/tasks)
    - Method: `PUT`
    - Headers:
 
@@ -381,7 +381,7 @@ npm start
 
 5. Delete task
 
-   - URL: [`/tasks/:id`](https://tms.srikanthkandi.me/tasks/:id)
+   - URL: [`/tasks/:id`](https://tms.srikanthkandi.tech/tasks/:id)
    - Method: `DELETE`
    - Headers:
 
@@ -399,21 +399,21 @@ npm start
 
 ## Admin vs. User Permissions
 
-| Endpoint                                                       | Method     | Admin Access | User Access |
-| -------------------------------------------------------------- | ---------- | ------------ | ----------- |
-| [`/register`](https://tms.srikanthkandi.me/register)           | **POST**   | ✔️           | ✔️          |
-| [`/login`](https://tms.srikanthkandi.me/login)                 | **POST**   | ✔️           | ✔️          |
-| [`/users`](https://tms.srikanthkandi.me/users)                 | **POST**   | ✔️           | ❌          |
-| [`/users`](https://tms.srikanthkandi.me/users)                 | **GET**    | ✔️           | ✔️          |
-| [`/users/:id`](https://tms.srikanthkandi.me/users/:id)         | **GET**    | ✔️           | ✔️          |
-| [`/users`](https://tms.srikanthkandi.me/users)                 | **PUT**    | ✔️           | ✔️ (self)   |
-| [`/users/:id`](https://tms.srikanthkandi.me/users/:id)         | **DELETE** | ✔️           | ✔️ (self)   |
-| [`/organizations`](https://tms.srikanthkandi.me/organizations) | **PUT**    | ✔️           | ❌          |
-| [`/tasks`](https://tms.srikanthkandi.me/tasks)                 | **GET**    | ✔️           | ✔️ (self)   |
-| [`/tasks/:id`](https://tms.srikanthkandi.me/tasks/:id)         | **GET**    | ✔️           | ✔️ (self)   |
-| [`/tasks`](https://tms.srikanthkandi.me/tasks)                 | **POST**   | ✔️           | ✔️          |
-| [`/tasks`](https://tms.srikanthkandi.me/tasks)                 | **PUT**    | ✔️           | ✔️ (self)   |
-| [`/tasks/:id`](https://tms.srikanthkandi.me/tasks/:id)         | **DELETE** | ✔️           | ✔️ (self)   |
+| Endpoint                                                         | Method     | Admin Access | User Access |
+| ---------------------------------------------------------------- | ---------- | ------------ | ----------- |
+| [`/register`](https://tms.srikanthkandi.tech/register)           | **POST**   | ✔️           | ✔️          |
+| [`/login`](https://tms.srikanthkandi.tech/login)                 | **POST**   | ✔️           | ✔️          |
+| [`/users`](https://tms.srikanthkandi.tech/users)                 | **POST**   | ✔️           | ❌          |
+| [`/users`](https://tms.srikanthkandi.tech/users)                 | **GET**    | ✔️           | ✔️          |
+| [`/users/:id`](https://tms.srikanthkandi.tech/users/:id)         | **GET**    | ✔️           | ✔️          |
+| [`/users`](https://tms.srikanthkandi.tech/users)                 | **PUT**    | ✔️           | ✔️ (self)   |
+| [`/users/:id`](https://tms.srikanthkandi.tech/users/:id)         | **DELETE** | ✔️           | ✔️ (self)   |
+| [`/organizations`](https://tms.srikanthkandi.tech/organizations) | **PUT**    | ✔️           | ❌          |
+| [`/tasks`](https://tms.srikanthkandi.tech/tasks)                 | **GET**    | ✔️           | ✔️ (self)   |
+| [`/tasks/:id`](https://tms.srikanthkandi.tech/tasks/:id)         | **GET**    | ✔️           | ✔️ (self)   |
+| [`/tasks`](https://tms.srikanthkandi.tech/tasks)                 | **POST**   | ✔️           | ✔️          |
+| [`/tasks`](https://tms.srikanthkandi.tech/tasks)                 | **PUT**    | ✔️           | ✔️ (self)   |
+| [`/tasks/:id`](https://tms.srikanthkandi.tech/tasks/:id)         | **DELETE** | ✔️           | ✔️ (self)   |
 
 ## Troubleshooting
 

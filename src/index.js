@@ -25,8 +25,8 @@ AppDataSource.initialize()
       res.send({
         message: "Welcome to Task Management System API!",
         apiDocs: "https://github.com/srikanth-kandi/edulab-tms#readme",
-        aboutMe: "https://www.srikanthkandi.me",
-        resume: "https://www.srikanthkandi.me/resume",
+        aboutMe: "https://www.srikanthkandi.tech",
+        resume: "https://www.srikanthkandi.tech/resume",
         linkedIn: "https://www.linkedin.com/in/srikanthkandi",
       });
     });
