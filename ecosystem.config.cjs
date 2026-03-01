@@ -8,10 +8,12 @@ module.exports = {
       // Restart if app crashes
       autorestart: true,
       max_restarts: 10,
-      restart_delay: 5000, // Wait 5s between restarts
+      min_uptime: 60000, // Consider app unstable if it crashes in the first minute
+      restart_delay: 5000, // Base delay between restarts for stable apps
+      exp_backoff_restart_delay: 5000, // Exponential backoff for unstable crash loops
       // Logging
-      out_file: "/home/ubuntu/.pm2/logs/tms-app-out.log",
-      error_file: "/home/ubuntu/.pm2/logs/tms-app-error.log",
+      out_file: `${process.env.HOME || "/home/ubuntu"}/.pm2/logs/tms-app-out.log`,
+      error_file: `${process.env.HOME || "/home/ubuntu"}/.pm2/logs/tms-app-error.log`,
       merge_logs: true,
       log_date_format: "YYYY-MM-DD HH:mm:ss",
     },
