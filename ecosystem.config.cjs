@@ -1,3 +1,8 @@
+const path = require("path");
+const os = require("os");
+
+const pm2LogDir = path.join(process.env.PM2_HOME || path.join(os.homedir(), ".pm2"), "logs");
+
 module.exports = {
   apps: [
     {
@@ -12,8 +17,8 @@ module.exports = {
       restart_delay: 5000, // Base delay between restarts for stable apps
       exp_backoff_restart_delay: 5000, // Exponential backoff for unstable crash loops
       // Logging
-      out_file: `${process.env.HOME || "/home/ubuntu"}/.pm2/logs/tms-app-out.log`,
-      error_file: `${process.env.HOME || "/home/ubuntu"}/.pm2/logs/tms-app-error.log`,
+      out_file: path.join(pm2LogDir, "tms-app-out.log"),
+      error_file: path.join(pm2LogDir, "tms-app-error.log"),
       merge_logs: true,
       log_date_format: "YYYY-MM-DD HH:mm:ss",
     },
