@@ -1,6 +1,8 @@
 const path = require("path");
 const os = require("os");
 
+// NOTE: PM2_HOME must be set in the environment that runs `pm2 start` (e.g. PM2/systemd);
+// this file does not load `.env`, so setting PM2_HOME only in `.env` will not affect this path.
 const pm2LogDir = path.join(process.env.PM2_HOME || path.join(os.homedir(), ".pm2"), "logs");
 
 module.exports = {
